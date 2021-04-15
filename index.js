@@ -35,13 +35,13 @@ client.connect(err => {
 
     app.post('/appointmentsByDate', (req, res) => {
         const date = req.body;
-        const email = req.body.email;
+        let email = req.body.email;
         doctorsCollection.find({ email: email })
 
             .toArray((err, doctors) => {
-                const filter = { date: date.date }
+                let filter = { date: date.date }
                 if (doctors.length === 0) {
-                    filter.email = email;
+                    filter = email;
                 }
                 appointmentCollection.find(filter)
                     .toArray((err, documents) => {
